@@ -3,6 +3,7 @@ const router = require('express').Router();
 
 console.log('inside router');
 
+
 const getAccountdetails = async (req,res)=>{
     const data = await db.get().collection('accounts').find({}).limit(0).toArray();
     try{
