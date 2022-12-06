@@ -1,7 +1,7 @@
 {
   "name": "account_microservices",
   "version": "1.0.0",
-  "description": "",
+  "description": "This service expose account API's",
   "main": "app.js",
   "dependencies": {
     "dotenv": "^16.0.3",
@@ -14,6 +14,10 @@
     "dev": "nodemon app.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Minakshee",
+  "license": "ISC",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": "^6.0.0"
+  }
 }
