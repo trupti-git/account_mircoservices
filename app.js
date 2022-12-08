@@ -17,4 +17,47 @@ app.get('/health', (req, res) => {
 app.use('/',accountRouter.router);
 // console.log(accountRoute.size);
 
+
+///////
+
+//app.use(middleware1);
+app.use(middleware1);
+
+app.get('/users',auth, (req,res) => {
+  console.log('This is standard api');
+  res.send('users page');
+  
+});
+
+//app.use(middleware3);
+
+function auth(req,res,next) {
+   
+  if (req.query.admin === 'true') {
+    console.log('auth user');
+    next();
+  }
+    console.log('No auth');
+    next();
+  
+}
+
+function middleware1(req,res,next) {
+    console.log('This is middleware #1');
+    next();
+  }
+  
+function middleware2(req,res,next) {
+  console.log('This is middleware #2');
+  //next();
+}
+
+function middleware3(req,res,next) {
+    console.log('This is middleware #3');
+    next();
+  }
+
+///////
+
+
 app.listen(env.PORT,()=> console.log(`Server connection successful on port ${env.PORT}`));

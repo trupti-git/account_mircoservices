@@ -48,3 +48,11 @@ git push
 - GET http://localhost:3005/accounts
 - POST http://localhost:3005/accounts
 - DELETE http://localhost:3005/accounts 
+
+***Status Codes***
+- 200, OK, successful response
+- 201, Created, usually in case of POST we return it
+- 400, bad request (we validate request and if expected params are not in proper format / exist we send it)
+- 401, unauthorized request
+- 404, resource not found
+- 500, internal server error (code exception / DB is down / or third party API is not working)
