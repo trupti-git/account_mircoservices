@@ -7,5 +7,6 @@ exports.env = {
     DB_URL : process.env.DB_URL,
     DB_NAME : process.env.DB_NAME,
     API_LINK : process.env.API_LINK,
-    API_USERS: process.env.API_USERS
+    API_USERS: process.env.API_USERS,
+    SALT: process.env.SALT
 };

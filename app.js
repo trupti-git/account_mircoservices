@@ -1,6 +1,9 @@
 const express = require('express');
 const { env } = require('./config/config');
 var bodyParser = require("body-parser");
+const uuid = require('uuid');
+
+//console.log(`Here is a test v1 uuid: ${uuid.v1()}`);
 
  // const router = require('./src/routes/accountRoute');
 const accountRouter = require('./src/routes/accountRoute');

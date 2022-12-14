@@ -1,6 +1,8 @@
 // create API's /register, /login, /verify
 const router = require('express').Router();
 const db = require('../../db/mongo');
+const { env } = require('../../config/config');
+const bcrypt = require('bcrypt');
 
 const getUserRegister = async(req,res)=>{
     //console.log('User registration');
@@ -22,12 +24,12 @@ const getUserRegister = async(req,res)=>{
         res.send('User already registered.');
         return;
     }
-
+    const passwordHash = await bcrypt.hash(password,parseInt(env.SALT));
     const newUser = {
         first_name:firstName,
         last_name:lastName,
         email_id:email,
-        password:password
+        password:passwordHash
     };
 
     const result = await db.get().collection('users').insertOne(newUser);
@@ -57,8 +59,9 @@ const checkUserLogin = async(req,res)=>{
         res.status(401).send('User is not registered');
         return;
     }
-    
-    if(!(pwd === user.password)){
+    const match = await bcrypt.compare(pwd,user.password);
+    console.log(match);
+    if(!(match)){
         console.log('Invalid user or password');
         res.send('Invalid user or password');
         return;
@@ -67,8 +70,13 @@ const checkUserLogin = async(req,res)=>{
 
 }
 
+const getUserVerify = async(req,res)=>{
+    
+}
+
 router.post('/register',getUserRegister);
 router.post('/login',checkUserLogin);
+router.get('/auth',getUserVerify);
 
 //auth/register or auth/signup
     //userid, email, password (make password encypted), save this to mongoDB,
