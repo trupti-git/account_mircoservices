@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 
  // const router = require('./src/routes/accountRoute');
 const accountRouter = require('./src/routes/accountRoute');
+const authRouter = require('./src/routes/authRoute');
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,7 +15,8 @@ app.get('/health', (req, res) => {
 })
 
 //app.use('/',router);
-app.use('/',accountRouter.router);
+//app.use('/',accountRouter.router);
+app.use('/',authRouter.router);
 // console.log(accountRoute.size);
 
 
