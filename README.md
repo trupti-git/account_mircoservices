@@ -13,6 +13,10 @@
 - git checkout -b "branch-name", to create new branch
 - git branch, see branch list 
 - git pull, to pull the code from remote repo
+- create branch from git commit, git checkout -b branch_name commitId
+- git branch -a, list all branches
+- git branch, shows current branch you are on
+- git checkout . revert changes
 
 before starting changes do git pull
 
