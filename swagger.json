@@ -3,7 +3,7 @@
     "info": {
       "version": "2.1.1",
       "title": "Account Service API",
-      "description": "Expose all accounts related to API's",
+      "description": "Expose all API's related to account microservice",
       "license": {
         "name": "MIT",
         "url": "https://opensource.org/licenses/MIT"
