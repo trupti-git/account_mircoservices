@@ -1,0 +1,18 @@
+name: Node Environment Setup
+description: Check out code, setup Node, build node app
+inputs:
+    node-versions:
+        description: Node version to install
+        required: true
+runs:
+    using: composite
+
+    steps:
+        - uses: actions/checkout@v2
+        - uses: actions/setup-node@v1
+          with:
+              node-version: '16.x'
+          
+        - name: Building App
+          run: npm build
+          shell: bash
