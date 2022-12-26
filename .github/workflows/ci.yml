@@ -1,0 +1,22 @@
+name: ci
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - '*'
+
+jobs:
+    checks:
+        name: LINT checks
+        runs-on:  ubuntu-latest
+        steps:
+            - uses: actions/checkout@2
+            - uses: ./.github/action
+              with:
+                  node-version: '16.x'
+            
+            - name: LINT
+              run: npm run lint
