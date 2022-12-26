@@ -1,6 +1,8 @@
 import express from 'express';
-import {env} from './config/config.js';
+import { env } from './config/config.js';
 import bodyParser from 'body-parser';
+import moment from 'moment';
+
 //console.log(`Here is a test v1 uuid: ${uuid.v1()}`);
 
 // const router = require('./src/routes/accountRoute');
@@ -12,18 +14,20 @@ import swaggerUi from 'swagger-ui-express';
 // import swaggerDocuments from './swagger.json'; // can't import json directly after node version >v14,
 // below is the alternative
 
-import { createRequire } from "module";
+import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-const swaggerDocuments = require("./swagger.json");
+const swaggerDocuments = require('./swagger.json');
 
 // const accountRouter = require('./src/routes/accountRoute').default;
 //const authRouter = require('./src/routes/authRoute');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors({
-  origin: ['https://www.section.io', ''] // multiple values pass in array separated by comma and origin: '*' means allow any
-}));
+app.use(
+  cors({
+    origin: ['https://www.section.io', ''], // multiple values pass in array separated by comma and origin: '*' means allow any
+  })
+);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocuments));
 

@@ -60,3 +60,8 @@ git push
 - 401, unauthorized request
 - 404, resource not found
 - 500, internal server error (code exception / DB is down / or third party API is not working)
+
+***Errors*** 
+- node_gyp error resolved using below commands
+- rm package-lock.json
+- npm install --legacy-peer-deps

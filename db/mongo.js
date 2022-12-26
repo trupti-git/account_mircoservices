@@ -39,7 +39,4 @@ const closeClient = () => {
   }
 };
 
-export {
-  get,
-  closeClient,
-};
+export { get, closeClient };

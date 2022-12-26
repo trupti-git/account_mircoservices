@@ -1,10 +1,11 @@
 // create API's /register, /login, /verify
 import express from 'express';
 const router = express.Router();
-import { get as db } from '../../db/mongo.js';
-import { env } from '../../config/config.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { get as db } from '../../db/mongo.js';
+import { env } from '../../config/config.js';
+import { logger } from '../../config/winstonConfig.js';
 
 // /**
 // * generates random string of characters i.e salt
@@ -82,7 +83,24 @@ const getUserRegister = async (req, res) => {
   }
 };
 
+const getHTMLStr = async (req, res) => {
+  // let s1 ='This email represent the collaborators added to the your git repository.';
+  // let HTMLStr =  '<p>'+ s1 + '</p>'
+  //  + '\n' +
+  //  + '<p>' + 'Name: Pankaj Khadse' + '' + 'Role: Admin' + '</p>'
+  const { name, role, date } = req.body;
+
+  let htmlstr = `<p>This email represent the collaborators added to the your git repository.</p>
+  Here is the URL: <a href="https://github.com/trupti-git/account_mircoservices/">https://github.com/trupti-git/account_mircoservices</a><br><br>
+  Name: <b>${name}</b><br>
+  Role: ${role}<br>
+  <p>Dated: ${date}</p>`;
+
+  res.send(htmlstr);
+};
+
 const checkUserLogin = async (req, res) => {
+  logger.debug('request to api' + req);
   const email = req.body.email;
   const pwd = req.body.password;
   if (!(email && pwd)) {
@@ -93,7 +111,7 @@ const checkUserLogin = async (req, res) => {
 
   const user = await db().collection('users').findOne({ email_id: email });
   if (!user) {
-    console.log('user is not registered');
+    logger.info('user is not registered');
     res.status(401).send('User is not registered');
     return;
   }
@@ -125,7 +143,6 @@ const getUsers = async (req, res) => {
 };
 
 function authenticate(req, res, next) {
-  console.log('authenticate user here' + req.headers['authorization']);
   if (!req.headers['authorization']) {
     return res.status(401).send();
   }
@@ -144,6 +161,7 @@ function authenticate(req, res, next) {
 router.post('/register', getUserRegister);
 router.post('/login', checkUserLogin);
 router.get('/users', authenticate, getUsers);
+router.post('/html', getHTMLStr);
 
 //auth/register or auth/signup
 //userid, email, password (make password encypted), save this to mongoDB,
