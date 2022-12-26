@@ -65,3 +65,6 @@ git push
 - node_gyp error resolved using below commands
 - rm package-lock.json
 - npm install --legacy-peer-deps
+
+
+***Git Actions CI pipeline*** 
