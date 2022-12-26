@@ -125,6 +125,7 @@ const checkUserLogin = async (req, res) => {
     res.send('Invalid user or password');
     return;
   }
+  console.log(env.SECRET)
   // const accessToken = jwt.sign(email,env.SECRET,{ expiresIn: 60 * 60 });
   const accessToken = jwt.sign(
     {
