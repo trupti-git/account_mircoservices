@@ -33,16 +33,54 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocuments));
 
 // To check health of the application, is it up / down. Usually load balancer use this
 app.get('/health', (req, res) => {
-  res.send('Healthy');
+    res.send('Healthy');
+})
+
+//app.use('/',router);
+app.use('/',accountRouter.router);
+// console.log(accountRoute.size);
+
+
+///////
+
+//app.use(middleware1);
+app.use(middleware1);
+
+app.get('/users',auth, (req,res) => {
+  console.log('This is standard api');
+  res.send('users page');
+  
 });
 
-console.log(process.env.NODE_ENV);
+//app.use(middleware3);
 
-const baseURL = '/api/v1';
+function auth(req,res,next) {
+   
+  if (req.query.admin === 'true') {
+    console.log('auth user');
+    next();
+  }
+    console.log('No auth');
+    next();
+  
+}
 
-app.use(baseURL, accountRouter);
-app.use(baseURL, authRouter);
+function middleware1(req,res,next) {
+    console.log('This is middleware #1');
+    next();
+  }
+  
+function middleware2(req,res,next) {
+  console.log('This is middleware #2');
+  //next();
+}
 
-app.listen(env.PORT, () =>
-  console.log(`Server connection successful on port ${env.PORT}`)
-);
+function middleware3(req,res,next) {
+    console.log('This is middleware #3');
+    next();
+  }
+
+///////
+
+
+app.listen(env.PORT,()=> console.log(`Server connection successful on port ${env.PORT}`));
