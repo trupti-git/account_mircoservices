@@ -1,0 +1,47 @@
+// MongoDB Playground
+// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// Select the database to use.
+use('sample_analytics');
+
+// Run a find command to view items sold on April 4th, 2014.
+const result = db.transactions.find({account_id: 170945}, {'transactions': 1, '_id': 0}).toArray();
+
+const  { transactions } = result[0];
+
+const action = {
+  symbolwisePrice: {},
+  buySymbol: {},
+  sellSymbol: {}
+}
+
+transactions.reduce((acc, curr) => {
+  if (curr.transaction_code.toLowerCase() === 'buy') {
+    if (!acc.buySymbol[curr.symbol]) {
+        acc.buySymbol[curr.symbol] = Math.round(Number(curr.price));
+    } else {
+        acc.buySymbol[curr.symbol] += Math.round(Number(curr.price));
+    }
+    // acc.totalBuyPrice += Math.round(Number(curr.price));
+  }
+  if (curr.transaction_code.toLowerCase() === 'sell') {
+    if (!acc.sellSymbol[curr.symbol]) {
+        acc.sellSymbol[curr.symbol] = Math.round(Number(curr.price));
+    } else {
+        acc.sellSymbol[curr.symbol] += Math.round(Number(curr.price));
+    }
+    // acc.totalSellPrice += Math.round(Number(curr.price));
+  }
+
+    if (!acc.symbolwisePrice[curr.symbol]) {
+        acc.symbolwisePrice[curr.symbol] = Math.round(Number(curr.price));
+    } else {
+        acc.symbolwisePrice[curr.symbol] += Math.round(Number(curr.price));
+    }
+
+  return acc;
+}, action)
+
+console.log(JSON.stringify(action));
