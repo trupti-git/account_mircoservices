@@ -13,7 +13,7 @@ jobs:
         name: LINT checks
         runs-on:  ubuntu-latest
         steps:
-            - uses: actions/checkout@2
+            - uses: actions/checkout@v2
             - uses: ./.github/action
               with:
                   node-version: '16.x'
